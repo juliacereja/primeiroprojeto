@@ -1,4 +1,4 @@
 import streamlit as st
 
-st.title('teste ECMI 2')
-st.write('esse é o meu texto')
+st.title('App da Juju')
+st.write('esse é meu primeiro app:)')
