@@ -19,25 +19,6 @@ if st.button("Adicionar"):
     if nova_tarefa:
         st.session_state.tarefas.append({"texto": nova_tarefa, "feito": False})
 
-st.divider()
-
-st.subheader("⏳ Pendentes")
-
-for i, tarefa in enumerate(st.session_state.tarefas):
-    if not tarefa["feito"]:
-        col1, col2 = st.columns([4,1])
-
-        with col1:
-            tarefa["feito"] = st.checkbox(
-                tarefa["texto"],
-                value=tarefa["feito"],
-                key=f"check_{i}"
-            )
-
-        with col2:
-            if st.button("❌", key=f"del_p_{i}"):
-                st.session_state.tarefas.pop(i)
-                st.rerun()
 
 st.divider()
 
