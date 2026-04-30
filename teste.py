@@ -22,7 +22,7 @@ if st.button("Adicionar"):
 
 st.divider()
 
-st.subheader("Pendentes")
+st.subheader("Metas a realizar")
 
 for i, tarefa in enumerate(st.session_state.tarefas):
     if not tarefa["feito"]:
@@ -45,7 +45,7 @@ for i, tarefa in enumerate(st.session_state.tarefas):
 
 st.divider()
 
-st.subheader("Concluídas")
+st.subheader("Metas cumpridas")
 
 for i, tarefa in enumerate(st.session_state.tarefas):
     if tarefa["feito"]:
