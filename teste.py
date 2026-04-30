@@ -8,7 +8,7 @@ st.image('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhUTExM
 col1, col2, col3 = st.columns([1,2,1])
 
 with col1:
-    st.write("Bucket List")
+    st.title("Bucket List")
     st.checkbox("Item 1")
     st.checkbox("Item 2")
     st.checkbox("Item 3")
