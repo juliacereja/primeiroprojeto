@@ -13,19 +13,11 @@ st.markdown("<h1 style='text-align: center;'>Antes de partir eu quero...</h1>", 
 if "tarefas" not in st.session_state:
     st.session_state.tarefas = []
 
-if "input_tarefa" not in st.session_state:
-    st.session_state.input_tarefa = ""
-
-nova_tarefa = st.text_input("Nova tarefa", key="input_tarefa")
+nova_tarefa = st.text_input("Nova tarefa")
 
 if st.button("Adicionar"):
-    if st.session_state.input_tarefa:
-        st.session_state.tarefas.append({
-            "texto": st.session_state.input_tarefa,
-            "feito": False
-        })
-      
-        st.session_state.input_tarefa = ""
+    if nova_tarefa:
+        st.session_state.tarefas.append({"texto": nova_tarefa, "feito": False})
 
 st.divider()
 
@@ -42,5 +34,4 @@ for i, tarefa in enumerate(st.session_state.tarefas):
     with col2:
         if st.button("❌", key=f"del_{i}"):
             st.session_state.tarefas.pop(i)
-            st.rerun()
             st.rerun()
