@@ -41,20 +41,46 @@ for i, tarefa in enumerate(st.session_state.tarefas):
 
 st.divider()
 
+st.subheader("⏳ Pendentes")
+
+for i, tarefa in enumerate(st.session_state.tarefas):
+    if not tarefa["feito"]:
+        col1, col2 = st.columns([4, 1])
+
+        with col1:
+            marcado = st.checkbox(
+                tarefa["texto"],
+                value=tarefa["feito"],
+                key=f"pendente_{i}"
+            )
+            if marcado != tarefa["feito"]:
+                tarefa["feito"] = marcado
+                st.rerun()
+
+        with col2:
+            if st.button("❌", key=f"del_pendente_{i}"):
+                st.session_state.tarefas.pop(i)
+                st.rerun()
+
+st.divider()
+
 st.subheader("✅ Concluídas")
 
 for i, tarefa in enumerate(st.session_state.tarefas):
     if tarefa["feito"]:
-        col1, col2 = st.columns([4,1])
+        col1, col2 = st.columns([4, 1])
 
         with col1:
-            tarefa["feito"] = st.checkbox(
+            marcado = st.checkbox(
                 tarefa["texto"],
                 value=tarefa["feito"],
-                key=f"check_{i}"
+                key=f"concluida_{i}"
             )
+            if marcado != tarefa["feito"]:
+                tarefa["feito"] = marcado
+                st.rerun()
 
         with col2:
-            if st.button("❌", key=f"del_c_{i}"):
+            if st.button("❌", key=f"del_concluida_{i}"):
                 st.session_state.tarefas.pop(i)
                 st.rerun()
