@@ -12,3 +12,33 @@ with col1:
     st.checkbox("Item 1")
     st.checkbox("Item 2")
     st.checkbox("Item 3")
+
+import streamlit as st
+
+st.title("📝 To-Do List")
+
+if "tarefas" not in st.session_state:
+    st.session_state.tarefas = []
+
+nova_tarefa = st.text_input("Nova tarefa")
+
+if st.button("Adicionar"):
+    if nova_tarefa:
+        st.session_state.tarefas.append({"texto": nova_tarefa, "feito": False})
+
+st.divider()
+
+for i, tarefa in enumerate(st.session_state.tarefas):
+    col1, col2 = st.columns([4,1])
+
+    with col1:
+        tarefa["feito"] = st.checkbox(
+            tarefa["texto"],
+            value=tarefa["feito"],
+            key=f"check_{i}"
+        )
+
+    with col2:
+        if st.button("❌", key=f"del_{i}"):
+            st.session_state.tarefas.pop(i)
+            st.rerun()
