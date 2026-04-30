@@ -8,7 +8,7 @@ st.image('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhUTExM
 
 import streamlit as st
 
-st.markdown("<h1 style='text-align: center;'>Antes de partir eu quero...</h1>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center;'>Antes de partir eu quero...</h2>", unsafe_allow_html=True)
 
 if "tarefas" not in st.session_state:
     st.session_state.tarefas = []
