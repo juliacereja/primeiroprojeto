@@ -67,7 +67,9 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.rerun()
 
 
-pip install openai
+import streamlit as st
+import random
+from openai import OpenAI
 
 from openai import OpenAI
 import streamlit as st
