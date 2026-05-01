@@ -67,28 +67,3 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.rerun()
 
 
-from huggingface_hub import InferenceClient
-import streamlit as st
-
-client = InferenceClient(token=st.secrets["HF_TOKEN"])
-
-categoria = st.selectbox(
-    "Tipo de ideia",
-    ["Aventura", "Dinheiro", "Pessoal", "Loucuras"]
-)
-
-prompt = f"Me dê uma ideia curta e criativa de {categoria} para fazer antes de morrer. Máximo 10 palavras."
-
-if st.button("Gerar ideia de meta"):
-    resposta = client.text_generation(
-        prompt,
-        model="HuggingFaceH4/zephyr-7b-beta",
-        max_new_tokens=30
-    )
-
-    st.session_state.tarefas.append({
-        "texto": resposta.strip(),
-        "feito": False
-    })
-
-    st.rerun()
