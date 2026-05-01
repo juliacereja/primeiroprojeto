@@ -67,12 +67,8 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.rerun()
 
 
-import streamlit as st
-import random
 from openai import OpenAI
 
-from openai import OpenAI
-import streamlit as st
 
 client = OpenAI(api_key="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")
 
