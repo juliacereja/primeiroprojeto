@@ -65,3 +65,41 @@ for i, tarefa in enumerate(st.session_state.tarefas):
             if st.button("❌", key=f"del_concluida_{i}"):
                 st.session_state.tarefas.pop(i)
                 st.rerun()
+
+
+pip install openai
+
+from openai import OpenAI
+import streamlit as st
+
+client = OpenAI(api_key="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")
+
+st.divider()
+
+st.subheader("Gerador de metas com IA")
+
+categoria = st.selectbox(
+    "Tipo de ideia",
+    ["Aventura", "Dinheiro", "Pessoal", "Loucuras"]
+)
+
+prompt = f"Me dê uma ideia curta de {categoria} para fazer antes de morrer"
+
+if st.button("Gerar ideia de meta"):
+    resposta = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": "Você cria ideias criativas de coisas para fazer na vida."},
+            {"role": "user", "content": "Me dê 1 ideia curta de algo interessante para fazer antes de morrer."}
+        ]
+    )
+
+    ideia = resposta.choices[0].message.content
+
+    st.session_state.tarefas.append({
+        "texto": ideia,
+        "feito": False
+    })
+
+    st.rerun()
+
