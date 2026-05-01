@@ -67,31 +67,27 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.rerun()
 
 
-import google.generativeai as genai
+from huggingface_hub import InferenceClient
 import streamlit as st
 
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-
-model = genai.GenerativeModel("gemini-2.5-flash")
-
-st.divider()
-
-st.subheader("Gerador de metas com IA")
+client = InferenceClient(token=st.secrets["HF_TOKEN"])
 
 categoria = st.selectbox(
     "Tipo de ideia",
     ["Aventura", "Dinheiro", "Pessoal", "Loucuras"]
 )
 
-prompt = f"Me dê uma ideia curta de {categoria} para fazer antes de morrer"
+prompt = f"Me dê uma ideia curta e criativa de {categoria} para fazer antes de morrer. Máximo 10 palavras."
 
 if st.button("Gerar ideia de meta"):
-    resposta = model.generate_content(prompt)
-
-    ideia = resposta.text
+    resposta = client.text_generation(
+        prompt,
+        model="HuggingFaceH4/zephyr-7b-beta",
+        max_new_tokens=30
+    )
 
     st.session_state.tarefas.append({
-        "texto": ideia,
+        "texto": resposta.strip(),
         "feito": False
     })
 
