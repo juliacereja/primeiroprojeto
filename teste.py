@@ -70,7 +70,7 @@ for i, tarefa in enumerate(st.session_state.tarefas):
 from openai import OpenAI
 
 
-client = OpenAI(api_key="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")
+client = OpenAI(api_key=st.secrets["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"])
 
 st.divider()
 
