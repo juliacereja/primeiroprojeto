@@ -86,9 +86,7 @@ categoria = st.selectbox(
 prompt = f"Me dê uma ideia curta de {categoria} para fazer antes de morrer"
 
 if st.button("Gerar ideia de meta"):
-    resposta = model.generate_content(
-        "Me dê uma ideia curta de algo interessante para fazer antes de morrer"
-    )
+    resposta = model.generate_content(prompt)
 
     ideia = resposta.text
 
