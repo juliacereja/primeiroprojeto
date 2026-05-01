@@ -67,11 +67,12 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.rerun()
 
 
-from openai import OpenAI
+import google.generativeai as genai
 import streamlit as st
 
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+model = genai.GenerativeModel("gemini-pro")
 
 st.divider()
 
@@ -85,15 +86,11 @@ categoria = st.selectbox(
 prompt = f"Me dê uma ideia curta de {categoria} para fazer antes de morrer"
 
 if st.button("Gerar ideia de meta"):
-    resposta = client.chat.completions.create(
-        model="gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": "Você cria ideias criativas de coisas para fazer na vida."},
-            {"role": "user", "content": "Me dê 1 ideia curta de algo interessante para fazer antes de morrer."}
-        ]
+    resposta = model.generate_content(
+        "Me dê uma ideia curta de algo interessante para fazer antes de morrer"
     )
 
-    ideia = resposta.choices[0].message.content
+    ideia = resposta.text
 
     st.session_state.tarefas.append({
         "texto": ideia,
@@ -101,4 +98,3 @@ if st.button("Gerar ideia de meta"):
     })
 
     st.rerun()
-
