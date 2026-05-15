@@ -71,6 +71,8 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.session_state.tarefas.pop(i)
                 st.rerun()
 
+API_URL = "https://api-inference.huggingface.co/models/gpt2"
+
 headers = {
     "Authorization": f"Bearer {st.secrets['HF_TOKEN']}"
 }
