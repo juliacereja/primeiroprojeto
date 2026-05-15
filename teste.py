@@ -1,4 +1,5 @@
 import streamlit as st
+import requests
 
 st.markdown("<h1 style='text-align: center;'>Coisas para fazer antes de completar a vida :)</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center;'>Você já pensou em quais coisas você PRECISA fazer durante a sua vida? Se não, aqui vão algumas ideias de coisas que todos deveriam fazer antes de completarem suas vidas! (o cachorrinho vai vigiar se você está fazendo elas ou não, hein)</h1>", unsafe_allow_html=True)
@@ -70,4 +71,43 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.session_state.tarefas.pop(i)
                 st.rerun()
 
+headers = {
+    "Authorization": f"Bearer {st.secrets['HF_TOKEN']}"
+}
+
+import requests
+
+st.divider()
+st.subheader("✨ Sugestões da IA")
+
+API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base"
+
+headers = {
+    "Authorization": f"Bearer {st.secrets['HF_TOKEN']}"
+}
+
+def gerar_ideia():
+
+    prompt = """
+    Crie uma ideia curta e inspiradora para uma lista de coisas para fazer antes de morrer.
+    """
+
+    payload = {
+        "inputs": prompt
+    }
+
+    response = requests.post(API_URL, headers=headers, json=payload)
+
+    resultado = response.json()
+
+    try:
+        return resultado[0]["generated_text"]
+    except:
+        return "Erro ao gerar ideia."
+
+if st.button("Gerar ideia com IA"):
+
+    ideia = gerar_ideia()
+
+    st.success(ideia)
 
