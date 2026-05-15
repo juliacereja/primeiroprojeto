@@ -87,6 +87,7 @@ def gerar_ideia():
 
     return resposta.text
 
+st.subheader("Gerar meta com IA!")
 if st.button("Gerar ideia com IA"):
 
     ideia = gerar_ideia()
