@@ -88,26 +88,25 @@ headers = {
 
 def gerar_ideia():
 
-    prompt = """
-    Crie uma ideia curta e inspiradora para uma lista de coisas para fazer antes de morrer.
-    """
+    prompt = "Crie uma ideia curta e inspiradora para uma lista de coisas para fazer antes de morrer."
 
     payload = {
         "inputs": prompt
     }
 
-    response = requests.post(API_URL, headers=headers, json=payload)
+    response = requests.post(
+        API_URL,
+        headers=headers,
+        json=payload
+    )
 
-    resultado = response.json()
+    # verifica se deu erro
+    if response.status_code != 200:
+        return f"Erro {response.status_code}: API indisponível"
 
     try:
+        resultado = response.json()
         return resultado[0]["generated_text"]
+
     except:
-        return "Erro ao gerar ideia."
-
-if st.button("Gerar ideia com IA"):
-
-    ideia = gerar_ideia()
-
-    st.success(ideia)
-
+        return "A IA não conseguiu gerar uma ideia agora."
