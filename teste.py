@@ -72,43 +72,27 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.rerun()
 
 
-st.divider()
+import google.generativeai as genai
 
-st.subheader("✨ Sugestões da IA")
+genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
 
-API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base"
-
-headers = {
-    "Authorization": f"Bearer {st.secrets['HF_TOKEN']}"
-}
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 def gerar_ideia():
 
-    prompt = "Crie uma ideia curta e inspiradora para uma lista de coisas para fazer antes de morrer."
+    prompt = """
+    Crie UMA ideia curta, inspiradora e criativa
+    para colocar numa lista de coisas para fazer
+    antes de morrer.
+    """
 
-    payload = {
-        "inputs": prompt
-    }
+    resposta = model.generate_content(prompt)
 
-    response = requests.post(
-        API_URL,
-        headers=headers,
-        json=payload
-    )
+    return resposta.text
 
-    if response.status_code != 200:
-        return f"Erro {response.status_code}"
-
-    try:
-        resultado = response.json()
-        return resultado[0]["generated_text"]
-
-    except:
-        return "A IA não conseguiu gerar uma ideia."
-
-# BOTÃO
 if st.button("Gerar ideia com IA"):
 
     ideia = gerar_ideia()
 
     st.success(ideia)
+
