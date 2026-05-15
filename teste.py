@@ -81,7 +81,7 @@ model = genai.GenerativeModel("gemini-2.5-flash")
 
 def gerar_ideia():
 
-    prompt = "Crie uma ideia de meta para uma lista de coisas para fazer antes de morrer."
+    prompt = "Crie uma ideia, resumida a 2 ou 3 palavras, de meta para uma lista de coisas para fazer antes de morrer."
 
     resposta = model.generate_content(prompt)
 
