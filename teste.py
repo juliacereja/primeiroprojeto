@@ -72,6 +72,7 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.rerun()
 
 
+import streamlit as st
 import google.generativeai as genai
 
 genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
@@ -80,11 +81,7 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 
 def gerar_ideia():
 
-    prompt = """
-    Crie UMA ideia curta, inspiradora e criativa
-    para colocar numa lista de coisas para fazer
-    antes de morrer.
-    """
+    prompt = "Crie uma ideia curta e inspiradora para uma lista de coisas para fazer antes de morrer."
 
     resposta = model.generate_content(prompt)
 
@@ -95,4 +92,3 @@ if st.button("Gerar ideia com IA"):
     ideia = gerar_ideia()
 
     st.success(ideia)
-
