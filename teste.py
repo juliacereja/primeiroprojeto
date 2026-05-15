@@ -72,9 +72,6 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.rerun()
 
 
-
-import requests
-
 st.divider()
 
 st.subheader("✨ Sugestões da IA")
