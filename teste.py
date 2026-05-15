@@ -71,13 +71,7 @@ for i, tarefa in enumerate(st.session_state.tarefas):
                 st.session_state.tarefas.pop(i)
                 st.rerun()
 
-import secrets
 
-API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base"
-
-headers = {
-    "Authorization": f"Bearer {st.secrets['HF_TOKEN']}"
-}
 
 import requests
 
@@ -85,7 +79,7 @@ st.divider()
 
 st.subheader("✨ Sugestões da IA")
 
-API_URL = "https://api-inference.huggingface.co/models/gpt2"
+API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base"
 
 headers = {
     "Authorization": f"Bearer {st.secrets['HF_TOKEN']}"
