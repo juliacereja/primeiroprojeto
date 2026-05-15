@@ -80,9 +80,10 @@ headers = {
 import requests
 
 st.divider()
+
 st.subheader("✨ Sugestões da IA")
 
-API_URL = "https://api-inference.huggingface.co/models/google/flan-t5-base"
+API_URL = "https://api-inference.huggingface.co/models/gpt2"
 
 headers = {
     "Authorization": f"Bearer {st.secrets['HF_TOKEN']}"
@@ -102,13 +103,19 @@ def gerar_ideia():
         json=payload
     )
 
-    # verifica se deu erro
     if response.status_code != 200:
-        return f"Erro {response.status_code}: API indisponível"
+        return f"Erro {response.status_code}"
 
     try:
         resultado = response.json()
         return resultado[0]["generated_text"]
 
     except:
-        return "A IA não conseguiu gerar uma ideia agora."
+        return "A IA não conseguiu gerar uma ideia."
+
+# BOTÃO
+if st.button("Gerar ideia com IA"):
+
+    ideia = gerar_ideia()
+
+    st.success(ideia)
